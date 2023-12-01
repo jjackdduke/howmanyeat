@@ -1,0 +1,44 @@
+server:
+  address: localhost
+  port: 8080
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/howmanyeat
+    username: root
+    password: ds5buv
+
+#  jpa:
+#    #    database: mysql
+#    #    database-platform: org.hibernate.spatial.dialect.mysql.MySQL56InnoDBSpatialDialect
+#    open-in-view: true
+#    hibernate:
+#      ddl-auto: none
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      use-new-id-generator-mappings: false
+#      jdbc:
+#        time_zone: Asia/Seoul
+#    show-sql: true
+#    properties:
+#      hibernate.format_sql: true
+#  #      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+# createDatabaseIfNotExist: ??????? ???? ??? ???? ??
+# useUnicode: ???? ?? ?? ??
+# characterEncoding: ??? ??? ?? ??
+# characterSetResult: ???? ??? ?? ??
+# useSSL: SSL ???? ??
+
+# spring.jpa.properties.hibernate.show_sql : ??????? ??? ?? SQL?? ??? ??
+# spring.jpa.properties.hibernate.format_sql : SQL ?? ??? ?? ??
