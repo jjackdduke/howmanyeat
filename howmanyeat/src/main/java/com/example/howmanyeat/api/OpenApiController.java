@@ -25,23 +25,9 @@ public class OpenApiController {
     private final OpenApiService openApiService;
 
     @GetMapping("api/v2/foodInfos")
-    public ResultDto foodInfos(@RequestParam("DESC_KOR") @Valid String foodName) {
-        System.out.println(openApiService.useWebClientV2(foodName) + "@@@@2");
-        List<FoodDto> foodDtoList = openApiService.useWebClientV2(foodName).getI2790().getRow().stream()
-                .map(m -> new FoodDto(m.getDESC_KOR(), m.getNUTR_CONT1()))
-                .collect(Collectors.toList());
-        return new ResultDto(foodDtoList);
+    public Object foodInfos(@RequestParam("DESC_KOR") @Valid String foodName) {
+        Object o = openApiService.useWebClientV1(foodName);
+        return o;
     }
 
-    @Data
-    @AllArgsConstructor
-    static class ResultDto<T> {
-        private T data;
-    }
-    @Data
-    @AllArgsConstructor
-    static class FoodDto {
-        private String name;
-        private String calorie;
-    }
 }

@@ -1,5 +1,4 @@
 package com.example.howmanyeat.service;
-import com.example.howmanyeat.api.OpenApiController;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,16 +18,46 @@ public class OpenApiService {
     @Value("${OPEN_API_KEY}")
     private String openApiKey;
 
-    public Optional<?> useWebClientV1(String foodName) {
+    public Object useWebClientV1(String foodName) {
 
-        Optional<?> optionalDto = Optional.of(webClient.get()
+        Optional<Object> optionalDto = Optional.of(webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(String.format("/%s/I2790/json/1/5/DESC_KOR=%s", openApiKey, foodName))
                         .build())
                 .retrieve()
-                .bodyToMono(Optional.class)
+                .bodyToMono(Object.class)
                 .block());
-        return optionalDto;
+        if (optionalDto.isPresent()) {
+
+            LinkedHashMap<String, Object> i2790HashMap = (LinkedHashMap<String, Object>) optionalDto.get();
+            LinkedHashMap<String, Object> resultEntityHashMap = (LinkedHashMap<String, Object>) i2790HashMap.get("I2790");
+
+            ArrayList<FoodDto> foodDtoArrayList = new ArrayList<>();
+
+            for (Object nutritionInfos : (ArrayList<Object>) resultEntityHashMap.get("row")) {
+                LinkedHashMap<Object, String> nutritionInfosHashMap = (LinkedHashMap<Object, String>) nutritionInfos;
+                FoodDto foodDto =  new FoodDto(
+                        nutritionInfosHashMap.get("NUTR_CONT8"),
+                        nutritionInfosHashMap.get("DESC_KOR")
+                        );
+                foodDtoArrayList.add(foodDto);
+            }
+            return new ResultDto((String) resultEntityHashMap.get("total_count"), foodDtoArrayList);
+        } else {
+            return null; // 좋지않은 방법
+        }
+    }
+    @Data
+    @AllArgsConstructor
+    static class ResultDto<T> {
+        private String count;
+        private T data;
+    }
+    @Data
+    @AllArgsConstructor
+    static class FoodDto {
+        private String name;
+        private String calorie;
     }
 
         public ResultEntity useWebClientV2(String foodName) {
@@ -45,20 +74,21 @@ public class OpenApiService {
     }
     @Data
     @NoArgsConstructor
-    public class ResultEntity {
+    static class ResultEntity {
         @JsonProperty("I2790")
         private I2790 I2790;
     }
 
     @Data
-    public class I2790 {
+    static class I2790 {
         private String total_count;
         private List<NutritionInfos> row;
         private Result RESULT;
     }
 
     @Data
-    public class NutritionInfos {
+    @AllArgsConstructor
+    static class NutritionInfos {
         private String NUTR_CONT8;
         private String NUTR_CONT9;
         private String NUTR_CONT4;
@@ -83,7 +113,7 @@ public class OpenApiService {
         private String FOOD_CD;
     }
     @Data
-    public class Result {
+    static class Result {
         private String MSG;
         private String CODE;
     }
