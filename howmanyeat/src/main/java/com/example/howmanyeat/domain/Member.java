@@ -19,9 +19,19 @@ public class Member {
     private Long id;
 
     @NotEmpty // 공백불가
+    @Column(name = "name")
     private String name;
 
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> orders = new ArrayList<>();
+    @Column(name = "height")
+    private float height;
+
+    @Column(name = "weight")
+    private float weight;
+
+    @Column(name = "muscle_mass")
+    private float muscleMass;
+
+    @OneToMany(mappedBy = "meal")
+    private List<Meal> orders = new ArrayList<>();
 
 }
