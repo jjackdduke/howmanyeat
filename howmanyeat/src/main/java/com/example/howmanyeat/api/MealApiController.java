@@ -33,7 +33,11 @@ public class MealApiController {
         meal.setMealTime(request.getMealTime());
         if (request.getIsNewDay()) {
             Meal findMeal = mealService.findRecentOne();
-            meal.setMealType(findMeal.getMealType() + 1);
+            if (findMeal == null) {
+                meal.setMealType(1);
+            } else {
+                meal.setMealType(findMeal.getMealType() + 1);
+            }
         } else {
             meal.setMealType(1);
         }
@@ -51,7 +55,6 @@ public class MealApiController {
         private float calorie;
         private String memo;
         private LocalDateTime mealTime;
-        private Member member;
         private Boolean isNewDay;
     }
 

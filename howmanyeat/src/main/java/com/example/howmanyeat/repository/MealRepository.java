@@ -21,8 +21,14 @@ public class MealRepository {
 //    public Meal findRecentOne(Long id) { return em.find(Meal.class, id); }
 
     public Meal findRecentOne() {
-        return em.createQuery("select m from Meal m order by mealTime desc", Meal.class)
-                .getSingleResult();
+        List<Meal> resultList = em.createQuery("select m from Meal m order by mealTime desc", Meal.class)
+                .getResultList();
+
+        if (resultList.isEmpty()) {
+            return null; // 또는 다른 기본값을 반환할 수 있음
+        }
+
+        return resultList.get(0);
     }
 
     public List<Meal> findByMember(Long id) {

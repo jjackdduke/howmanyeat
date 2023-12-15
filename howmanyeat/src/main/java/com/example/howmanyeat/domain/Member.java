@@ -31,7 +31,7 @@ public class Member {
     @Column(name = "muscle_mass")
     private float muscleMass;
 
-    @OneToMany(mappedBy = "meal")
-    private List<Meal> orders = new ArrayList<>();
+    @OneToMany(mappedBy = "member")
+    private List<Meal> meals = new ArrayList<>();
 
 }

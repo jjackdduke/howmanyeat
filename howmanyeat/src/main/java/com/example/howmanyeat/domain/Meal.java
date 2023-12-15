@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,18 +24,18 @@ public class Meal {
     @Column(name = "food_name")
     private String foodName;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "calorie")
     private float calorie;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "meal_type")
     private int mealType;
 
     @Column(name = "memo")
     private String memo;
 
-    @NotEmpty
+    @NotNull
     @Column(name = "meal_time")
     private LocalDateTime mealTime;
 
