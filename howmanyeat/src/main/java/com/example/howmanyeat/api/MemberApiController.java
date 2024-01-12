@@ -62,6 +62,8 @@ public class MemberApiController {
     // 2. API 문서를 까보지 않아도 멤버에서 어느 값이 파라미터로 넘어오는지 알 수 있다.
     // 3. validation 도 entity 에 직접 설정해주는 것이 아니라 dto 에 설정해줘서 다양성 및 유지보수에 큰 이점이 있다.
     // 4. entity 를 변경해도 외부에서 쏴주는 API 스펙에는 변함이 없어도 된다.(협업에 용이)
+
+    // 5. v1과 v2 모두 지연로딩이 발생하는 문제가 있다.
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request) {
 

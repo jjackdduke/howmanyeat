@@ -21,7 +21,7 @@ public class Meal {
     // 성능 최적화가 꼭 필요한 경우엔 fetch join을 사용해라.
     // 지연로딩이면 new해서 멤버 객체를 가져오는게 아니라
     // (DB에서 가져오는게 아니라) 프록시 멤버 객체를 생성해서 넣어놓는다.
-    // 멤버 객체를 실질적으로 사용할 때 SQL을 날려서 DB에서 조회를 한다.test
+    // 멤버 객체를 실질적으로 사용할 때 SQL을 날려서 DB에서 조회를 한다.
     @JoinColumn(name = "member_id")
     private Member member;
 

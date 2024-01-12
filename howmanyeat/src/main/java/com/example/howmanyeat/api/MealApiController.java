@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MealApiController {
 
+    // 의존관계는 한방향으로만 가는게 좋다(ex : controller -> service -> repository)
     private final MemberService memberService;
     private final MealService mealService;
 
