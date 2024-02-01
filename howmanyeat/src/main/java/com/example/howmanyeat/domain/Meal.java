@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Meal {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "meal_id")
-    private Long id;
+    private Long mealId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     // 즉시로딩하면 성능튜닝이 매우 어려워진다.
@@ -25,22 +25,22 @@ public class Meal {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @NotEmpty
+    @NotEmpty // NotEmpty NotNull 차이 : notnull은 진짜 null만 안됨, ""같은게 됨
     @Column(name = "food_name")
     private String foodName;
 
-    @NotNull
+    @NotEmpty
     @Column(name = "calorie")
     private float calorie;
 
-    @NotNull
+    @NotEmpty
     @Column(name = "meal_type")
     private int mealType;
 
     @Column(name = "memo")
     private String memo;
 
-    @NotNull
+    @NotEmpty
     @Column(name = "meal_time")
     private LocalDateTime mealTime;
 

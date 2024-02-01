@@ -23,7 +23,7 @@ public class MemberService {
 
         validateDuplicateMember(member); // 중복 회원 검증
         memberRepository.save(member);
-        return member.getId();
+        return member.getMemberId();
     }
 
     private void validateDuplicateMember(Member member) {

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,6 +70,7 @@ public class MemberApiController {
 
         Member member = new Member();
         member.setName((request.getName()));
+        member.setCreatedAt(LocalDateTime.now());
 
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
@@ -81,7 +83,7 @@ public class MemberApiController {
 
         memberService.update(id, request.getName()); // 얘는 커맨드
         Member findMember = memberService.findOne(id); // 얘는 쿼리
-        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+        return new UpdateMemberResponse(findMember.getMemberId(), findMember.getName());
     }
 
     @Data

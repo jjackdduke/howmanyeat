@@ -16,7 +16,7 @@ public class MealService {
     @Transactional
     public Long join(Meal meal) {
         mealRepository.save(meal);
-        return meal.getId();
+        return meal.getMealId();
     }
 
     public Meal findRecentOne() { return mealRepository.findRecentOne(); }

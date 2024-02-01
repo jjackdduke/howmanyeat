@@ -6,6 +6,7 @@ import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private Long id;
+    private Long memberId;
 
     @NotEmpty // 공백불가
     @Column(name = "name")
@@ -30,6 +31,9 @@ public class Member {
 
     @Column(name = "muscle_mass")
     private float muscleMass;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "member")
     private List<Meal> meals = new ArrayList<>();
